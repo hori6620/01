@@ -1,0 +1,1033 @@
+/*----------------------------
+* インポートはこちら
+*----------------------------*/
+@import "mediaquery.scss";
+
+/*----------------------------
+* ミックスインはこちら
+*----------------------------*/
+
+@mixin contents-title {
+    font-size: 32px;
+    color: #333333;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.068em;
+}
+
+@mixin contents-text {
+    font-size: 1rem;
+    color: #333333;
+    font-family: "游ゴシック体", "YuGothic";
+    font-weight: 500;
+}
+
+@mixin about-contents-text($fSize: 1rem) {
+    font-size: $fSize;
+    color: #333333;
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 2;
+    font-weight: 400;
+}
+
+@mixin readmore-btn {
+    display: block;
+    background: #000000;
+    border: none;
+    padding: 11px 41px;
+    box-sizing: border-box;
+    a {
+        font-size: 12px;
+        color: #FFF;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 0.015;
+        font-weight: bold;
+    }
+}
+
+@mixin flex-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/*----------------------------
+* 共通部分はこちら
+*----------------------------*/
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    width: 100%;
+    vertical-align: bottom;
+
+}
+
+/*----------------------------
+* タイトル部分はこちら
+*----------------------------*/
+.home-wrapper {
+    height: 100vh; 
+}
+
+.about-home, .contact-home {
+    height: 59.25vh; 
+}
+
+.index-kv {
+    background-image: url("../img/kv-img.svg");
+    width: 76.4%;
+    height: 81.1%;
+    background-position: center 0;
+    background-size: cover;
+    position: relative;
+
+}
+
+.about-kv {
+    background-image: url("../img/heading-img.svg");
+    width: 76.4%;
+    height: 83.4%;
+    background-position: center 0;
+    background-size: cover;
+    position: relative;
+
+}
+
+
+.contact-kv {
+    background-image: url("../img/heading-img_contact.svg");
+    width: 76.4%;
+    height: 83.4%;
+    background-position: center 0;
+    background-size: cover;
+    position: relative;
+
+}
+
+.home::after {
+    content: "";
+    display: block;
+    background: #222222;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 54.2%;
+    height: 93.7%;
+    z-index: -1;
+}
+
+.about-home::after, .contact-home::after{
+    content: "";
+    display: block;
+    background: #222222;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 54.2%;
+    height: 59.25%;
+    z-index: -1;
+}
+
+.page-header {
+    &__title {
+        width: 260px;
+        position: fixed;
+        top: 30px;
+        left: 4vw;
+        z-index: 1;
+        @include media(l) {
+            width: 189px;
+        }
+        @include media(s) {
+            width: 120px;
+        }
+    }
+    &__list {
+        &--contents {
+            position: fixed;
+            top: 0;
+            left: 1;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            width: 36.111%;
+            z-index: 1;
+            background-color: rgba($color: #222222, $alpha: .95);
+            text-align: center;
+            visibility: hidden;
+            transition: opacity .5s, visibility .5s;
+            @include media(m) {
+                padding: 0;
+                width: 100%;
+            }
+            a {
+                color: #ffffff;
+                font-size: 1.25rem;
+                font-family: 'Montserrat', sans-serif;  
+                font-weight: 800;
+                transition: color .6s ease;
+                &:hover {
+                    color: #666666;
+                }
+            }
+            li:nth-child(1) {
+                margin-top: 180px;
+            }
+            li:not(:nth-child(1)) {
+                margin-top: 40px;
+            }
+        }
+        &--contents.show {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
+.burger-btn {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 36px;
+    right: 3.9%;
+    z-index: 2;
+    cursor: pointer;
+    &__bars {
+        display: block;
+        position: relative;
+        width: 1.5rem;
+        height: 0.75rem;
+        & span {
+            width: 100%;
+            height: 2px;
+            background-color: #fff;
+            position: absolute;
+            transition: transform .5s, opacity .5s, background-color .5s;
+            border-radius: 5px;
+        }
+        &--top {
+            top: 0;
+
+        }
+        &--mid {
+            top: 0;
+            bottom: 0;
+            margin: auto;
+
+        }
+        &--bottom {
+            bottom: 0;
+        }
+    }
+    &__text {
+        display: block;
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;  
+        font-weight: 800;
+        font-size: 10px;
+        margin-left: 6px;
+    }
+
+    &.show span:nth-child(1) {
+        transform: translateY(5px) rotate(-135deg); //translateでバー角度、rotateはバーをどれくらい回すか
+    }
+    &.show span:nth-child(2) {
+        opacity: 0; //バーを消している
+    }
+    &.show span:nth-child(3) {
+        transform: translateY(-5px) rotate(135deg); //translateでバーの角度、rotateはバーをどれくらい回すか
+    }
+}
+
+.home-contents {
+    position: absolute;
+    top: 161px;
+    right: 13.4%;
+    @include media(xl) {
+        top: 333px;
+        right: 10.4%;
+    }
+    @include media(m) {
+        top: 178px;
+        right: 5.33%;
+
+    }
+    &__text {
+        width:100%;
+        margin-bottom: 10px;
+        & p {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #fff;
+            font-family: "游ゴシック体", "YuGothic";
+            line-height: 1.176;
+            @include media(m) {
+                font-size: 1rem;
+
+            }
+        }
+        & p span {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.8;
+        }
+    }
+    &__title {
+        & p {
+            font-family: 'Montserrat', sans-serif;  
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            @include media(m) {
+                font-size: 3.5rem;
+            }
+        }
+        
+    }
+}
+
+
+.about-home-contents {
+    position: absolute;
+    top: 161px;
+    right: 13.4%;
+    @include media(xl) {
+        top: 220px;
+        right: 9.57%;
+    }
+    @include media(m) {
+        top: 149px;
+        right: 7.7%;
+
+    }
+    @include media(s) {
+        top: 110px;
+        right: 7.7%;
+
+    }
+    &__text {
+        width:100%;
+        margin-bottom: 10px;
+        & p {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #fff;
+            font-family: "游ゴシック体", "YuGothic";
+            line-height: 1.176;
+            @include media(m) {
+                font-size: 1rem;
+            }
+            @include media(s) {
+                font-size: 0.875rem;
+            }
+        }
+        & p span {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.8;
+        }
+    }
+    &__title {
+        & p {
+            font-family: 'Montserrat', sans-serif;  
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            @include media(m) {
+                font-size: 3.25rem;
+            }
+            @include media(s) {
+                font-size: 2.25rem;
+            }
+        }
+        
+    }
+}
+
+.flex-box-article {
+    @include flex-box();
+    @include media(xl) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+}
+.flex-box-contact {
+    @include flex-box();
+    @include media(xl) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+
+}
+
+.main-wrapper {
+    padding: 0 11.8vw; //コンテンツの両端の空白
+    @include media(xl) {
+        padding: 0 4.9vw 0 3.9vw; //【タブレット】コンテンツの両端の空白
+    }
+    @include media(m) {
+        padding: 0 2.666vw 0 5.33vw; //【スマホ】コンテンツの両端の空白
+    } 
+}
+
+.about-main-wrapper {
+    max-width: 1440px;
+    padding: 0 11.8%; //コンテンツの両端の空白
+    box-sizing: border-box;
+    @include media(l) {
+        padding: 0 3.9%; //【タブレット】コンテンツの両端の空白
+    }
+    @include media(m) {
+        padding: 0 4%; //【スマホ】コンテンツの両端の空白
+    } 
+}
+
+.contact-main-wrapper {
+    max-width: 1440px;
+    padding: 0 25.69%; //コンテンツの両端の空白
+    box-sizing: border-box;
+    @include media(xl) {
+        padding: 0 6.5%; //【タブレット】コンテンツの両端の空白
+    }
+    @include media(m) {
+        padding: 0 4%; //【スマホ】コンテンツの両端の空白
+    } 
+}
+
+.main-contents {
+    &__about {
+        background-image: url(../img/about-img.svg);
+        width: 76.388vw;
+        height: 76.9vh;
+        background-size: cover;
+        background-position: center 0;
+        margin: 8.998vh auto 10.13vh;
+        @include media(xl) {
+            background-image: url(../img/skyline-4582510_1920.svg);
+            width: 100vw;
+            height: 46.5vh;
+            margin: 0.6vh auto 60px;
+        }
+        @include media(m) {
+            width: 100vw;
+            height: 81.1vh;
+            margin: 32px auto 40px;
+
+        }
+        @include media(s) {
+            width: 100vw;
+            height: 88vh;
+
+        }
+        &--text {
+            width: 40.9vw;
+            height: 49vh;
+            background-color: rgba($color: #ffffff, $alpha: .95);
+            font-size: 1rem;
+            padding: 6.3vh 0 6.3vh 30px;
+            box-sizing: border-box;
+            position: relative;
+            top: 14vh;
+            left: 3.4vw;
+            @include media(xl) {
+                width: 76.8vw;
+                height: 35vh;
+                top: 5.85vh;
+                left: 11.5vw;
+                padding: 5vh 0 5vh 30px;
+
+            }
+            @include media(m) {
+                width: 92vw;
+                height: 66.1vh;
+                top: 10.4vh;
+                left: 3.7vw;
+                font-size: 0.875rem;
+                padding: 4.4vh 0 0 32px;
+            }
+            @include media(s) {
+                width: 92vw;
+                height: 76.1vh;
+                top: 9vh;
+                left: 3.7vw;
+                font-size: 0.875rem;
+                padding: 4.4vh 0 0 32px;
+
+            }
+            & h2 {
+                @include contents-title();
+                margin-bottom: 3.88vh;
+            }
+            & p {
+                width: 36.8vw;
+                line-height: 2;
+                margin-bottom: 3.88vh;
+                @include media(xl) {
+                    width: 53vw;
+                }
+                @include media(l) {
+                    width: 69vw;
+                }
+                @include media(m) {
+                    width: 80vw;
+                }
+            }
+        }
+        &--button {
+            @include readmore-btn();
+        }
+        
+    }
+
+    //about.html
+    &__vision {
+        margin: 15.3vh 0 0 20.5%;
+        @include media(xl) {
+            margin: 80px 0 0 19.5vw;
+        }
+        @include media(m) {
+            margin: 80px 0 0 4vw;
+        }
+        &--title {
+            h2 { //VISIONコンテンツのタイトル部分
+                @include contents-title();
+                margin-bottom: 3.8vh;
+                @include media(m) {
+                    margin-bottom: 5.5vh;
+                }
+            }
+            p { //VISIONコンテンツのテキスト部分
+                font-size: 1.5rem;
+                color: #333333;
+                font-family: "游ゴシック体", "YuGothic";
+                letter-spacing: 0.005em;
+                font-weight: bold;
+                margin-bottom: 30px; //--textとの間のマージン
+                @include media(xl) {
+                    font-family: 'Noto Sans JP', sans-serif;
+                    font-weight: 400;
+                }
+            }
+        }
+        &--text {
+            margin-bottom: 120px;
+            @include media(xl) {
+              margin-bottom: 80px;
+            }
+            p {
+                @include about-contents-text();
+                @include media(xl) {
+                    @include about-contents-text(0.875rem);
+                }
+            }
+        }
+     }
+
+    //contact.html
+    &__contact {
+        margin-top: 15.3vh;
+        @include media(xl) {
+            margin-top: 80px;
+        }
+        &--text {
+            margin-bottom: 55px; //下空白
+            @include media(xl) {
+                margin-bottom: 76px;
+            }
+            @include media(m) {
+                margin-bottom: 51px;
+            }
+            p {
+                font-family: 'Noto Sans JP', sans-serif;
+                font-size: 1rem;
+                color: #333333;
+                line-height: 1.5;
+                @include media(m) {
+                    font-family: "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, sans-serif;
+                    font-size: 0.875rem;
+                    line-height: 1.71;
+
+                }
+            }
+        }
+    }
+
+    .form-inner {
+        & dl {
+            margin-bottom: 45px; //各項目との間
+            @include media(s) {
+                margin-bottom: 40px;
+            }
+        }
+        & dt {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            &.radio__title {
+                margin-bottom: 25px; //ラジオボタンタイトルの下空白
+            }
+        }
+        /* form */
+        & input[type="text"],
+        & select {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-appearance: button;
+            appearance: none;
+            border-radius: 0;
+            width: 100%;
+            height: 5.2vh;
+            font-size: 16px;
+            border: 1px solid #aaa;
+            padding: 10px;
+        }
+        & textarea {
+            width: 100%;
+            height: 27vh;
+            resize: none;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        //checkBox, radio flex
+        .checkBox {
+            &__inner {
+                text-align: center; //中央寄せ
+                @include media(m) {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: left; //左寄せ
+                }
+            }
+        }
+
+        .radio {
+            &__inner {
+                @include media(m) {
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                }
+            }
+        }
+        //checkBox 基本設定
+        .checkBox__item label .checkBox__text {
+            @include media(m) {
+                display: block; //flex化のためブロックに
+                line-height: 1.5;
+                font-size: 0.875rem;
+                font-family: "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, sans-serif;
+            }
+        }
+
+        //必須タグ
+        .textBox,
+        .radio {
+            &__title {
+                &--lead {
+                    color: #FFFFFF;
+                    font-size: 0.75rem;
+                    font-weight: normal;
+                    padding: 3px 5px;
+                    background-color: #000000;
+                    margin-left: 10px; //タイトルからの左空白
+                }
+            }
+        }
+    }
+    
+    //checkBox, radioアイコン設定
+    .checkBox__item, 
+    .radio__item {
+        label input {
+            display: none;
+        }
+        @include media(m) {
+            margin-bottom: 20px; //【スマホ】各項目間の空白
+        }
+    }
+    
+    .checkBox__item label input:checked + .checkBox__text:after, .radio__item label input:checked + .radio__text:after {
+        display: block;
+    }
+    
+    .checkBox__item label, .radio__item label {
+        display: inline-block;
+        margin-right: 20px; //ラジオボタン間の空白
+    }
+    
+    .checkBox__item label .checkBox__text, .radio__item label .radio__text {
+        padding-left: 30px; //テキスト空白
+        position: relative;
+        cursor: pointer;
+    }
+    
+    //アイコン囲い部分
+    .checkBox__item label .checkBox__text:before, .radio__item label .radio__text:before { 
+        content: "";
+        position: absolute;
+        transition: 0.3s;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #333333;
+        background-color: #fff;
+    }
+    
+    //アイコン内のチェック部分
+    .checkBox__item label .checkBox__text:after {
+        content: "";
+        position: absolute;
+        transition: 0.3s;
+        display: none;
+        width: 20px;
+        height: 10px;
+        left: 0;
+        top: 50%;
+        margin-top: -8px;
+        transform: scale(0.5) rotate(-45deg);
+        border-bottom: 2px solid #333333;
+        border-left: 2px solid #333333;
+    }
+
+    .radio__item label .radio__text {
+        &:after {
+            content: "";
+            position: absolute;
+            transition: 0.3s;
+            display: none;
+            background: #333333;
+            width: 20px;
+            height: 20px;
+            left: 1px;
+            top: 50%;
+            margin-top: -10px;
+            transform: scale(0.5);
+    }
+    
+    &:before, &:after {
+        border-radius: 100px;
+    }
+}
+
+    //privacyPolicy
+    .privacyPolicy {
+        &__item {
+            overflow: auto; //スクロールボックス化
+            width: 100%; 
+            height: 32.1vh;
+            padding: 10px; //テキストエリア内の上下左右
+            border: 1px solid #333333;
+            line-height:1.5em;
+            box-sizing: border-box;
+            p {
+                font-size: 1rem;
+                font-family: 'Noto Sans JP', sans-serif;
+                color: #333333;
+            }
+            &--newline {
+                margin-bottom: 1.5rem; //改行
+            }
+        }
+    }
+
+    /* submit */
+    .submit {
+        display: flex;
+        justify-content: center;
+        &__item {
+            cursor: pointer;
+            border: none;
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            font-weight: bold;
+            padding: 11px 66px;
+            margin-bottom: 16.7vh;
+        }
+    }
+
+    &__works {
+        h2 {
+            @include contents-title();
+            margin-bottom: 30px;
+        }
+        &--img {
+            width: 100%;
+            height: 65.9%;
+            margin-bottom: 30px;
+        }
+        p {
+            @include contents-text();
+            margin-bottom: 30px;
+        }
+
+        &--button {
+            @include readmore-btn()
+        }
+
+    }
+    &__culture {
+        margin-left: 60px;
+        @include media(xl) {
+            margin-left: 0px;
+        }
+        h2 {
+            @include contents-title();
+            margin-bottom: 30px;
+            @include media(xl) {
+                margin-top: 80px;
+
+            }
+            @include media(m) {
+                margin-top: 40px;
+
+            } 
+        }
+        &--img {
+            width: 100%;
+            height: 65.9%;
+            margin-bottom: 30px;
+        }
+
+        p {
+            @include contents-text();
+            margin-bottom: 30px;
+
+        }
+        &--button {
+            @include readmore-btn();
+        }
+    }
+
+    //about.html
+    &__message {
+        position: relative;
+        padding-top: 144px; //画像との差
+        margin-bottom: 120px;
+        &--img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 38.1%;
+            @include media(xl) {
+                width: 45.19%;
+            }
+            @include media(m) {
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                width: 98.5%;
+            }
+        }
+    }
+    &__message-contents {
+        width: 70%;
+        margin-left: auto;
+        background-color: #F0F0F0;
+        padding: 120px 16.8% 90px;
+        box-sizing: border-box;
+        @include media(xl) {
+            padding: 129px 5.6% 78px;
+        }
+        @include media(l) {
+            padding: 109px 5.6% 78px;
+        }
+        @include media(m) {
+            width: 100%;
+            padding: 129px 8.6% 80px;
+        }
+        @include media(s) {
+            padding: 33.6vw 8.6% 80px;
+        }
+
+        &--title {
+            h2 {
+                @include contents-title();
+                margin-bottom: 30px;
+                @include media(m) {
+                    font-size: 31px;
+                }
+                @include media(s) {
+                    font-size: 28px;
+                }
+            }
+        }
+        &--text {
+            p {
+                @include about-contents-text();
+                @include media(m) {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    &-topics {
+        margin-top: 120px; //works・culutureコンテンツとtopicsコンテンツ間のマージン
+        margin-bottom: 60px; //contactとの間のマージン
+        @include media(xl) {
+          margin-top: 80px; //works・culutureコンテンツとtopicsコンテンツ間のマージン
+
+        }
+        &__title {
+            @include contents-title();
+        }
+        &__heading {
+            margin: 0 0 0 27.7vw;
+            @include media(xl) {
+                margin: 0 0 0 auto;
+            }
+            p {
+                font-size: 0.625rem;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: 500;
+                color: #CECECE;
+            }
+            h3 {
+                font-size: 0.875rem; //見出しのフォントサイズ
+                font-family: 'Montserrat', sans-serif;
+                font-weight: bold;
+                color: #333333;
+                margin-top: 1.6vh;
+                @include media(m) {
+                    font-size: 0.75rem;
+                }
+            }
+            &--first {
+                margin-top: 32px; //タイトルと1番目の見出しのマージン
+            }
+            &--second {
+                margin-top: 44px; //1番目の見出しと2番目の見出しのマージン
+                @include media(m) {
+                    margin-top: 32px; //1番目の見出しと2番目の見出しのマージン
+                }
+            }
+
+            &--third {
+                margin-top: 44px; //2番目の見出しと3番目の見出しのマージン
+                @include media(m) {
+                    margin-top: 32px; //1番目の見出しと2番目の見出しのマージン
+                }
+            }
+            &--button {
+                @include readmore-btn();
+                margin: 3.8vh 0 0 auto;
+            }
+        }
+    }
+
+    //about.html
+    &__info {
+        &--title {
+            h2 {
+                @include contents-title();
+            }
+        }
+        &--text {
+            table {
+                margin: 0 0 40px auto; //右寄せにする
+                width: 72.72%; //テーブルの幅
+                white-space: nowrap; //文字を折り返さない
+                @include media(xl) {
+                    width: 88.28%; 
+                }
+                @include media(m) {
+                    width: 100%;
+                }
+                th, td {
+                    border-bottom: 1px solid #DDD;
+                    padding: 20px 0;
+                    text-align: left;
+                    font-size: 1rem;
+                    font-family: "游ゴシック", "Yu Gothic", "游ゴシック体", YuGothic, sans-serif;
+                    color: #333333;
+                    @include media(m) {
+                        font-size: 0.875rem;
+                        font-family: 'Noto Sans JP', sans-serif;
+                    }
+                }
+                th {
+
+                    font-weight: bold;
+                }
+            }
+        }
+        &--map {
+            margin-bottom: 120px;
+            @include media(xl) {
+            margin-bottom: 80px;
+
+            }
+        }
+    }
+
+
+    &-contact {
+        padding-top: 60px;
+        padding-bottom: 120px;
+        background: #F2F2F2;
+        &__title {
+            @include media(xl) {
+                margin-top: 30px;
+            }
+            h2 {
+                @include contents-title();
+                
+            }
+
+        }
+        &__text {
+            width: 30.5vw;
+            height: auto;
+            margin-top: 30px;
+            @include media(xl) {
+                width: 66.4vw;
+            }
+            p {
+                @include contents-text();
+                line-height: 2;
+            }
+
+        }
+        &__button {
+            @include readmore-btn();
+            margin-top: 30px;
+
+        }
+        &__img {
+            width: 100%;
+            margin-left: 80px;
+            @include media(xl) {
+                width: 67.7vw;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.footer {
+    padding: 21px 0;
+    text-align: center;
+    background-color: #525252;
+    small {
+        color: #ffffff;
+        font-size: 10px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+    }
+}
